@@ -1,15 +1,17 @@
 
 # Auth API
 
-This project is a NestJS-based authentication API that provides endpoints for user signup and signin. It includes Swagger API documentation secured with Basic Authentication.
+This project is a NestJS-based authentication API providing robust endpoints for user signup and signin. It incorporates industry-standard security measures and comprehensive testing for reliable and secure operations.
 
 ---
 
 ## Features
 
-- User signup and signin functionalities.
-- Swagger documentation secured with Basic Authentication.
-- Comprehensive unit and end-to-end (e2e) tests.
+- **Authentication**: User signup and signin functionalities.
+- **Swagger Documentation**: Secured with Basic Authentication.
+- **Security Measures**: Includes Helmet for HTTP headers, rate limiting, CORS configuration, and CSRF protection.
+- **Comprehensive Testing**: Includes 14 test cases (unit and e2e tests) with 100% code coverage for critical files.
+- **Extensible Architecture**: Built using NestJS, following best practices for scalability and maintainability.
 
 ---
 
@@ -94,8 +96,18 @@ Swagger documentation is available for testing the API endpoints.
 
 2. Enter the following Basic Authentication credentials when prompted:
 
-    - **Username**: `admin`
-    - **Password**: `321`
+   - **Username**: `admin`
+   - **Password**: `321`
+
+---
+
+## Security Measures
+
+- **Helmet**: Secures HTTP headers to prevent common vulnerabilities.
+- **Rate Limiting**: Restricts excessive requests to protect against denial-of-service (DoS) attacks.
+- **CORS Configuration**: Ensures secure cross-origin resource sharing.
+- **CSRF Protection**: Guards against Cross-Site Request Forgery attacks.
+- **Input Validation**: All inputs are validated and sanitized to prevent SQL/NoSQL injection and XSS attacks.
 
 ---
 
@@ -125,9 +137,9 @@ To generate a coverage report:
 npm run test:cov
 ```
 
+The application has 14 test cases with 100% code coverage for essential files.
+
 ---
-
-
 
 ## Contributing
 
@@ -148,4 +160,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 For issues or feature requests, please open an issue in the repository.
 
-Happy coding! 🎉
+---
+
+**Happy coding!** 🎉

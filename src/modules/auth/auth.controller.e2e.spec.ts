@@ -100,7 +100,7 @@ describe('AuthController (e2e)', () => {
       const response = await request(app.getHttpServer())
         .post('/auth/signin')
         .send(signinDto)
-        .expect(201);
+        .expect(200);
 
       expect(authService.signin).toHaveBeenCalledWith(signinDto);
       expect(response.body).toEqual(signinResult);

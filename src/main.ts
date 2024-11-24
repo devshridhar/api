@@ -1,3 +1,4 @@
+import helmet from 'helmet';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -7,6 +8,7 @@ import basicAuthMiddleware from './middleware/basic-auth.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(helmet());
   // Apply Global Exception Filter
   app.useGlobalFilters(new GlobalExceptionFilter());
   // Enable validation globally
@@ -23,10 +25,20 @@ async function bootstrap() {
     .setTitle('Auth API')
     .setDescription('The Auth API documentation')
     .setVersion('1.0')
-    .addTag('auth') // Add any tags you are using
+    .addTag('auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  /*
+  // enable CORS when go for production
+  app.enableCors({
+    origin: ['https://trusted-domain.com'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    allowedHeaders: 'Content-Type,Authorization',
+  });
+  */
 
   await app.listen(process.env.PORT ?? 3000);
 }
