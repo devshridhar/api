@@ -3,6 +3,10 @@
 
 This project is a NestJS-based authentication API providing robust endpoints for user signup and signin. It incorporates industry-standard security measures and comprehensive testing for reliable and secure operations.
 
+Demo: https://auth.fullstackdev.in/docs
+
+Api Url: https://auth-api.fullstackdev.in/
+
 ---
 
 ## Features
