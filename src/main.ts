@@ -19,26 +19,29 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.use('/api', basicAuthMiddleware);
+  app.use('/api-docs-json', basicAuthMiddleware);
   // Set up Swagger
   const config = new DocumentBuilder()
-    .setTitle('Auth API')
-    .setDescription('The Auth API documentation')
+    .setTitle('API Documentation')
+    .setDescription('API description for the backend')
     .setVersion('1.0')
-    .addTag('auth')
+    .addBearerAuth()
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
 
-  /*
+  const document = SwaggerModule.createDocument(app, config);
+
+  // Serve Swagger JSON at '/api-docs-json'
+  app.getHttpAdapter().get('/api-docs-json', (req, res) => {
+    res.json(document);
+  });
+
   // enable CORS when go for production
   app.enableCors({
-    origin: ['https://trusted-domain.com'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    allowedHeaders: 'Content-Type,Authorization',
+    origin: '*', // Allows requests from all origins
+    methods: '*', // Allows all HTTP methods
+    credentials: true, // Allow sending credentials (cookies, authorization headers)
+    allowedHeaders: '*', // Allows all headers
   });
-  */
 
   await app.listen(process.env.PORT ?? 3000);
 }
