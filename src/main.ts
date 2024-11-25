@@ -8,6 +8,13 @@ import basicAuthMiddleware from './middleware/basic-auth.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // enable CORS when go for production
+  app.enableCors({
+    origin: '*',
+    methods: '*',
+    credentials: true,
+    allowedHeaders: '*',
+  });
   app.use(helmet());
   // Apply Global Exception Filter
   app.useGlobalFilters(new GlobalExceptionFilter());
@@ -19,7 +26,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.use('/api-docs-json', basicAuthMiddleware);
+  // app.use('/api-docs-json', basicAuthMiddleware); disabled for demo purpose
   // Set up Swagger
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
@@ -33,14 +40,6 @@ async function bootstrap() {
   // Serve Swagger JSON at '/api-docs-json'
   app.getHttpAdapter().get('/api-docs-json', (req, res) => {
     res.json(document);
-  });
-
-  // enable CORS when go for production
-  app.enableCors({
-    origin: '*', // Allows requests from all origins
-    methods: '*', // Allows all HTTP methods
-    credentials: true, // Allow sending credentials (cookies, authorization headers)
-    allowedHeaders: '*', // Allows all headers
   });
 
   await app.listen(process.env.PORT ?? 3000);
